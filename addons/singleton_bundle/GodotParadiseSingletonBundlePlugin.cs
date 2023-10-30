@@ -1,4 +1,5 @@
 #if TOOLS
+using System;
 using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
@@ -6,7 +7,12 @@ using Godot.Collections;
 [Tool]
 public partial class GodotParadiseSingletonBundlePlugin : EditorPlugin
 {
-	private Setting setting = new($"{ProjectSettings.GetSetting("application/config/name")}/config/godotenv/root_directory", "res://", PropertyHint.TypeString, Variant.Type.String);
+	private readonly Setting setting = new(
+		$"{ProjectSettings.GetSetting("application/config/name")}/config/godotenv/root_directory",
+		"res://",
+		PropertyHint.TypeString,
+		Variant.Type.String
+	);
 
 
 	public override void _EnterTree()
@@ -16,6 +22,7 @@ public partial class GodotParadiseSingletonBundlePlugin : EditorPlugin
 		AddAutoloadSingleton(AddPrefix("AudioManager"), "res://addons/singleton_bundle/audio/AudioManager.cs");
 		AddAutoloadSingleton(AddPrefix("Environment"), "res://addons/singleton_bundle/dotenv/GodotEnv.cs");
 		AddAutoloadSingleton(AddPrefix("Utilities"), "res//addons/singleton_bundle/utils/Utilities.cs");
+		AddAutoloadSingleton(AddPrefix("VectorWizard"), "res://addons/singleton_bundle/utils/VectorWizard.cs");
 	}
 
 	public override void _ExitTree()
@@ -23,21 +30,22 @@ public partial class GodotParadiseSingletonBundlePlugin : EditorPlugin
 		RemoveAutoloadSingleton(AddPrefix("AudioManager"));
 		RemoveAutoloadSingleton(AddPrefix("Environment"));
 		RemoveAutoloadSingleton(AddPrefix("Utilities"));
+		RemoveAutoloadSingleton(AddPrefix("VectorWizard"));
 
 		RemoveSettings();
 	}
 
 	private void SetupSettings()
 	{
-		ProjectSettings.SetSetting(setting["name"], setting["value"]);
-		ProjectSettings.AddPropertyInfo(new() { { "name", setting["name"] }, { "type", setting["type"] } });
+		ProjectSettings.SetSetting(setting.Name, setting.Value);
+		ProjectSettings.AddPropertyInfo(new() { { "name", setting.Name }, { "type", (int)setting.Type } });
 	}
 
 	private void RemoveSettings()
 	{
-		if (ProjectSettings.HasSetting(setting["name"]))
+		if (ProjectSettings.HasSetting(setting.Name))
 		{
-			ProjectSettings.SetSetting(setting["name"], null);
+			ProjectSettings.SetSetting(setting.Name, string.Empty);
 		}
 	}
 
