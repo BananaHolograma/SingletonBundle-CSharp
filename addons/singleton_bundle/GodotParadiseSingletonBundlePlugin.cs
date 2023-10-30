@@ -23,6 +23,14 @@ public partial class GodotParadiseSingletonBundlePlugin : EditorPlugin
 		AddAutoloadSingleton(AddPrefix("Environment"), "res://addons/singleton_bundle/dotenv/GodotEnv.cs");
 		AddAutoloadSingleton(AddPrefix("Utilities"), "res//addons/singleton_bundle/utils/Utilities.cs");
 		AddAutoloadSingleton(AddPrefix("VectorWizard"), "res://addons/singleton_bundle/utils/VectorWizard.cs");
+		AddAutoloadSingleton(AddPrefix("SceneTransitioner"), "res://addons/singleton_bundle/scene_transitioner/SceneTransitioner.cs");
+
+		AddCustomType(
+			AddPrefix("SceneTransition"),
+			"Node",
+			GD.Load<Script>("res://addons/singleton_bundle/scene_transitioner/SceneTransition.cs"),
+		 	GD.Load<Texture2D>("res://addons/singleton_bundle/scene_transitioner/video.png")
+		 );
 	}
 
 	public override void _ExitTree()
@@ -31,7 +39,9 @@ public partial class GodotParadiseSingletonBundlePlugin : EditorPlugin
 		RemoveAutoloadSingleton(AddPrefix("Environment"));
 		RemoveAutoloadSingleton(AddPrefix("Utilities"));
 		RemoveAutoloadSingleton(AddPrefix("VectorWizard"));
+		RemoveAutoloadSingleton(AddPrefix("SceneTransitioner"));
 
+		RemoveCustomType(AddPrefix("SceneTransition"));
 		RemoveSettings();
 	}
 
@@ -45,7 +55,7 @@ public partial class GodotParadiseSingletonBundlePlugin : EditorPlugin
 	{
 		if (ProjectSettings.HasSetting(setting.Name))
 		{
-			ProjectSettings.SetSetting(setting.Name, string.Empty);
+			ProjectSettings.SetSetting(setting.Name, default);
 		}
 	}
 
