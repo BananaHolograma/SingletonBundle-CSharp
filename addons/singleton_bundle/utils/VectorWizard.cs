@@ -100,12 +100,12 @@ public partial class VectorWizard : Node
 		return Mathf.Max(Mathf.Abs(a.X - b.X), Mathf.Abs(a.Y - b.Y));
 	}
 
-	public float LenghtManhattanV2(Vector2 a)
+	public float LengthManhattanV2(Vector2 a)
 	{
 		return Mathf.Abs(a.X) + Mathf.Abs(a.Y);
 	}
 
-	public float LenghtChebysevV2(Vector2 a, Vector2 b)
+	public float LengthChebysevV2(Vector2 a, Vector2 b)
 	{
 		return Mathf.Max(Mathf.Abs(a.X), Mathf.Abs(a.Y));
 	}
@@ -148,12 +148,12 @@ public partial class VectorWizard : Node
 		return Mathf.Max(Mathf.Abs(a.X - b.X), Mathf.Max(Mathf.Abs(a.Y - b.Y), Mathf.Abs(a.Z - b.Z)));
 	}
 
-	public float LenghtManhattanV3(Vector3 a)
+	public float LengthManhattanV3(Vector3 a)
 	{
 		return Mathf.Abs(a.X) + Mathf.Abs(a.Y) + Mathf.Abs(a.Z);
 	}
 
-	public float LenghtChebysevV3(Vector3 a, Vector3 b)
+	public float LengthChebysevV3(Vector3 a, Vector3 b)
 	{
 		return Mathf.Max(Mathf.Abs(a.X), Mathf.Max(Mathf.Abs(a.Y), Mathf.Abs(a.Z)));
 	}
