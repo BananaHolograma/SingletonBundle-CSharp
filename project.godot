@@ -8,6 +8,10 @@
 
 config_version=5
 
+[GodotParadiseSingletonBundle]
+
+config/godotenv/root_directory="res://"
+
 [application]
 
 config/name="GodotParadiseSingletonBundle"
@@ -17,11 +21,7 @@ config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="GodotParadiseHealthComponent"
-
-[editor_plugins]
-
-enabled=PackedStringArray()
+project/assembly_name="GodotParadiseSingletonBundle"
 
 [rendering]
 

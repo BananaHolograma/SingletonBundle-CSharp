@@ -8,7 +8,7 @@ public partial class Utilities : Node
 
     private Random Random = new();
 
-    public async void FrameFreeze(double timeScale, double duration)
+    public async void StartFrameFreeze(double timeScale, double duration)
     {
         EmitSignal(SignalName.FrameFreeze);
 

@@ -1,17 +1,12 @@
 #if TOOLS
 using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
 
 [Tool]
 public partial class GodotParadiseSingletonBundlePlugin : EditorPlugin
 {
-
-	private Dictionary<string, dynamic> setting = new(){
-		{"name", $"{ProjectSettings.GetSetting("application/config/name")}/config/godotenv/root_directory"},
-		{"value", "res://"},
-		{"hint", PropertyHint.TypeString},
-		{"type", Variant.Type.String},
-	};
+	private Setting setting = new($"{ProjectSettings.GetSetting("application/config/name")}/config/godotenv/root_directory", "res://", PropertyHint.TypeString, Variant.Type.String);
 
 
 	public override void _EnterTree()
@@ -49,6 +44,22 @@ public partial class GodotParadiseSingletonBundlePlugin : EditorPlugin
 	private string AddPrefix(string name)
 	{
 		return $"GodotParadise{name}";
+	}
+}
+
+public record class Setting
+{
+	public string Name;
+	public string Value;
+	public PropertyHint Hint;
+	public Variant.Type Type;
+
+	public Setting(string name, string value, PropertyHint hint, Variant.Type type)
+	{
+		Name = name;
+		Value = value;
+		Hint = hint;
+		Type = type;
 	}
 }
 #endif
