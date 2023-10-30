@@ -17,13 +17,18 @@ public partial class GodotParadiseSingletonBundlePlugin : EditorPlugin
 	public override void _EnterTree()
 	{
 		SetupSettings();
+
 		AddAutoloadSingleton(AddPrefix("AudioManager"), "res://addons/singleton_bundle/audio/AudioManager.cs");
 		AddAutoloadSingleton(AddPrefix("Environment"), "res://addons/singleton_bundle/dotenv/GodotEnv.cs");
+		AddAutoloadSingleton(AddPrefix("Utilities"), "res//addons/singleton_bundle/utils/Utilities.cs");
 	}
 
 	public override void _ExitTree()
 	{
 		RemoveAutoloadSingleton(AddPrefix("AudioManager"));
+		RemoveAutoloadSingleton(AddPrefix("Environment"));
+		RemoveAutoloadSingleton(AddPrefix("Utilities"));
+
 		RemoveSettings();
 	}
 

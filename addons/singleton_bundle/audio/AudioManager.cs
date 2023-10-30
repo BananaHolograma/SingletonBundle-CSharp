@@ -10,7 +10,7 @@ using Godot;
 using Godot.Collections;
 using System.Linq;
 
-public partial class GodotParadiseAudioManager : Node
+public partial class AudioManager : Node
 {
 
     public Array<string> AvailableBuses = new();

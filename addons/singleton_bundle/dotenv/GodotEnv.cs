@@ -1,9 +1,8 @@
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Godot;
 using Godot.Collections;
 
-public partial class GodotParadiseEnvironment : Node
+public partial class Godotenv : Node
 {
     [Signal]
     public delegate void VariableAddedEventHandler(string key);
