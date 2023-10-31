@@ -2,7 +2,7 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 
-public partial class Godotenv : Node
+public partial class GodotEnv : Node
 {
     [Signal]
     public delegate void VariableAddedEventHandler(string key);

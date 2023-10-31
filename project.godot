@@ -8,10 +8,6 @@
 
 config_version=5
 
-[GodotParadiseSingletonBundle]
-
-config/godotenv/root_directory="res://"
-
 [application]
 
 config/name="GodotParadiseSingletonBundle"

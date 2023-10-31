@@ -7,7 +7,8 @@
 [![Total downloads](https://img.shields.io/github/downloads/GodotParadise/SingletonBundle-CSharp/total.svg?label=Downloads&logo=github&cacheSeconds=600)](https://github.com/GodotParadise/SingletonBundle-CSharp/releases)
 [![License](https://img.shields.io/github/license/GodotParadise/SingletonBundle-CSharp?cacheSeconds=2592000)](https://github.com/GodotParadise/SingletonBundle-CSharp/blob/main/LICENSE.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat&logo=github)](https://github.com/godotparadise/SingletonBundle-CSharp/pulls)
-[![](https://img.shields.io/discord/1167079890391138406.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/XqS7C34x)
+[![](https://img.shields.io/discord/1167079890391138406.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/XqS7C34x)ç
+[![Kofi](https://badgen.net/badge/icon/kofi?icon=kofi&label)](https://ko-fi.com/bananaholograma)
 </p>
 
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/GodotParadise/SingletonBundle-CSharp/blob/main/README.md)

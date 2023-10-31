@@ -21,15 +21,15 @@ public partial class GodotParadiseSingletonBundlePlugin : EditorPlugin
 
 		AddAutoloadSingleton(AddPrefix("AudioManager"), "res://addons/singleton_bundle/audio/AudioManager.cs");
 		AddAutoloadSingleton(AddPrefix("Environment"), "res://addons/singleton_bundle/dotenv/GodotEnv.cs");
-		AddAutoloadSingleton(AddPrefix("Utilities"), "res//addons/singleton_bundle/utils/Utilities.cs");
+		AddAutoloadSingleton(AddPrefix("Utilities"), "res://addons/singleton_bundle/utils/Utilities.cs");
 		AddAutoloadSingleton(AddPrefix("VectorWizard"), "res://addons/singleton_bundle/utils/VectorWizard.cs");
-		AddAutoloadSingleton(AddPrefix("SceneTransitioner"), "res://addons/singleton_bundle/scene_transitioner/SceneTransitioner.cs");
+		AddAutoloadSingleton(AddPrefix("SceneTransitioner"), "res://addons/singleton_bundle/scene_transition/SceneTransitioner.cs");
 
 		AddCustomType(
 			AddPrefix("SceneTransition"),
 			"Node",
-			GD.Load<Script>("res://addons/singleton_bundle/scene_transitioner/SceneTransition.cs"),
-		 	GD.Load<Texture2D>("res://addons/singleton_bundle/scene_transitioner/video.png")
+			GD.Load<Script>("res://addons/singleton_bundle/scene_transition/SceneTransition.cs"),
+		 	GD.Load<Texture2D>("res://addons/singleton_bundle/scene_transition/video.png")
 		 );
 	}
 
