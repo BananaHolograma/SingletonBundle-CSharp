@@ -15,6 +15,7 @@
 - - -
 
 This plugin offers a collection of singletons that encompass global resources and functionalities that can enhance your game's utility and accessibility.
+
 - [Requirements](#requirements)
 - [✨Installation](#installation)
 	- [Automatic (Recommended)](#automatic-recommended)
@@ -108,18 +109,18 @@ Performs a basic check and returns whether the direction passed as a parameter i
 `GodotParadiseVectorWizard.is_diagonal_direction(Vector2(1, -1))`
 
 ### Vector2 GenerateRandomDirection()
-Simple random Vector2 direction generator, use this function if you need a random direction in some behaviour of your game. The result is normalized
+Simple random `Vector2` direction generator, use this function if you need a random direction in some behaviour of your game. The result is normalized
 
 ### GenerateRandomAngle(float minAngleRange = 0.0f, float maxAngleRange = 360.0f)
 Generate a random angle between a range provided, the unit is on degrees
-```py
+```csharp
 # Between 90º and 120º
 GodotParadiseVectorWizard.generate_random_angle(90, 120) # 117º
 ```
 
 ### GenerateRandomDirectionsOnAngleRange(Vector2 origin, float minAngleRange = 0.0f, float maxAngleRange = 360.0f, int numDirections = 10)
 This function generate a n random directions in a Array[Vector2] format from an starting vector point defining the min and max angles:
-```py
+```csharp
 # 5 Random directions from Vector down (0, 1) between 90º and 180º
 GodotParadiseVectorWizard.GenerateRandomDirectionsOnAngleRange(Vector2.Down, 90.0f, 180.0f, 5)
 
@@ -141,6 +142,9 @@ Also known as the "city distance" or "L1 distance". It measures the distance bet
 **Sliding puzzle:** In puzzle games where you must move pieces to solve a puzzle, the Manhattan distance is used to calculate how far a piece is from its target position. The closer a piece is to its correct position, the more it will "fit" into the puzzle.
 
 ### float DistanceChebysevV2(Vector2 a, Vector2 b)
+Also known as the "chess distance" or "L∞ distance".
+It measures the distance between two points as the greater of the absolute differences of their coordinates in each dimension.
+
 *Examples on where can be useful:*
 
 **Movement of a king in chess:** In a game of chess, the king moves in any direction *(horizontally, vertically or diagonally)*. The Chebyshev distance is used to determine how many moves it takes for the king to move from its current position to a target square, since the king can move in any of these directions.
@@ -159,7 +163,7 @@ This function is specifically designed to find the closest point on a line segme
 For example, in a drawing application, you can employ this function to accurately snap a point to the nearest position on a line when creating freehand drawings.
 
 ### Vector2 ClosestPointOnLineV2(Vector2 a, Vector2 b, Vector2 c)
-In contrast to the `closest_point_on_line_clamped` function, this variant is intended to identify the closest point on a line segment without imposing any restrictions on its location within or outside the segment. This makes it versatile in situations where you need to find the nearest point on a line but don't require it to be confined to the segment. 
+In contrast to the `ClosestPointOnLineClampedV2` function, this variant is intended to identify the closest point on a line segment without imposing any restrictions on its location within or outside the segment. This makes it versatile in situations where you need to find the nearest point on a line but don't require it to be confined to the segment. 
 
 For instance, in a CAD application, you might use this function to locate the closest point on a sketch line to a user-defined point.
 
@@ -176,35 +180,38 @@ Utilities that do not have a particular location and belong to a more global sco
 
 ### string GenerateRandomString(int length, string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 You can use this function to generate a random string with a specified length and character list. For instance, you can utilize this function to create invitation codes for your multiplayer rooms:
+
 `string invitationCode = GodotParadiseUtilities.GenerateRandomString(4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") # returns YMZ2`
 
 ### bool IsValidUrl(string url)
 As the String class from Godot lack this validation you can use the following one:
-`GodotParadiseUtilities.is_valid_url("https://example.com") # true`
+
+`GodotParadiseUtilities.IsValidUrl("https://example.com") # true`
 
 ### async void StartFrameFreeze(double timeScale, double duration)
 To achieve a slow-motion effect you can use this function that receives the time scale *(as time goes by frame by frame)* and the duration of the freeze in seconds.
-```py
+```csharp
 # Time scale 0.05
 # Duration 0.5 sec
 GodotParadiseUtilities.StartFrameFreeze(0.05, 0.5)
 ```
 Here you can see an example that trigger a frame freeze when a character jumps:
-```py
-func handle_jump():
-	if Input.is_action_just_pressed("jump"):
-		player.jump()
-		GodotParadiseUtilities.StartFrameFreeze(0.05, 1)
+```csharp
+public void handleJump():
+	if (Input.IsActionJustPressed("jump")) {
+		player.Jump();
+		GodotParadiseUtilities.StartFrameFreeze(0.05, 1);
+	}
 ```
 `FrameFreezed` signal is emitted when the effect starts in case you want to listen to it to perform other actions such as triggering animations.
  Here you can see a basic example:
- ```py
- func _ready():
-	GodotParadiseUtilities.StartFrameFreeze.connect(OnFrameFreezed)
+ ```csharp
+public override _Ready():
+	GodotParadiseUtilities.StartFrameFreeze += OnFrameFreezed;
 
-func OnFrameFreezed():
+private void OnFrameFreezed():
 	AnimatedSprite.Play("juicy_hurt")
-	 #...
+	 //...
  ```
 
 
@@ -215,6 +222,7 @@ Environment variables provide a standardized and crucial method for effectively 
 
 You can access all features by using the `GodotParadiseEnvironment` class in any part of your code. This class provides extra functionality while maintaining compatibility with `OS.GetEnvironment()` and `OS.SetEnvironment()` for runtime variable management.
 By default, this class looks for `.env` files in the root of your project `res://` To modify this path, you can use:
+
 `GodotParadiseEnvironment.EnvironmentFilesPath = "res://project"`
 
 or set the value on the ***Project settings -> GodotEnv -> Root directory:***
@@ -223,23 +231,23 @@ or set the value on the ***Project settings -> GodotEnv -> Root directory:***
 ### Variable tracker
 For internal execution convenience, the plugin tracks active variables without storing their values in array, as storing sensitive content in this array can risk data leaks or unauthorized access. This approach allows you to verify which variables have been read and loaded into memory without exposing their values:
 
-`GodotEnvironment.EnvironmentVariableTracker # could return ["ADDRESS", "PORT", "SERVER_ID]`
+`GodotParadiseEnvironment.EnvironmentVariableTracker # could return ["ADDRESS", "PORT", "SERVER_ID]`
 
 
 ### Example of use
-```py
-# .env file
+```csharp
+// .env file
 ADDRESS=127.0.0.1
 PORT=9492
 
 SERVER_ID=1919
 
-# random_script.gd
-GodotEnvironment.LoadEnvFile(".env")
+// random_script.cs
+GodotParadiseEnvironment.LoadEnvFile(".env")
 
-GodotEnvironment.GetVar("PORT") # Returns an empty string if does not exists
-# or
-GodotEnvironment.GetVarOrNull("PORT") # Returns null instead
+GodotParadiseEnvironment.GetVar("PORT") // Returns an empty string if does not exists
+// or
+GodotParadiseEnvironment.GetVarOrNull("PORT") // Returns null instead
 ```
 **You only need to load your environment variables once**, and there's no need to load them in every `_Ready()` function in your nodes. If you have duplicate variables, the value used will be the one from the last occurrence. Therefore, it's important to review your files carefully to avoid unintentional overwriting.
 ```dotenv
@@ -249,64 +257,71 @@ ADDRESS=192.168.1.55 # This is the one that will be assigned as it overwrites th
 
 ### Loading variables from other files
 This class supports reading multiple environment files. For production, it's highly advisable to refrain from including the `.env` file in your source code repository. Instead, consider providing on the repository an `.env.example` file with blank values for the keys used. This strategy enables you to duplicate the file and input the values in your local environment, thereby averting the inadvertent exposure of sensitive information.
-```dotenv
-# .env.example
+```csharp
+// .env.example
 ADDRESS=
 PORT=
 SERVER_NAME=
 
-# random_script.gd
-GodotEnvironment.LoadEnvFile(".env.example")
-GodotEnvironment.LoadEnvFile(".env.dev")
-GodotEnvironment.LoadEnvFile(".env.staging")
-# ...
+// random_script.cs
+GodotParadiseEnvironment.LoadEnvFile(".env.example")
+GodotParadiseEnvironment.LoadEnvFile(".env.dev")
+GodotParadiseEnvironment.LoadEnvFile(".env.staging")
+// ...
 ```
 
 ### Signals
-```py
-signal VariableAdded(string key)
-signal VariableRemoved(string key)
-signal VariableReplaced(string key)
-signal EnvFileLoaded(string filename)
+```csharp
+VariableAdded(string key)
+VariableRemoved(string key)
+VariableReplaced(string key)
+EnvFileLoaded(string filename)
 ```
 
 ### string GetVar(string key)
-This is an alternative to `OS.GetEnvironment(key)` : `GodotParadiseEnvironment.GetVar("SERVER_PORT")`
+This is an alternative to `OS.GetEnvironment(key)` :
+
+`GodotParadiseEnvironment.GetVar("SERVER_PORT")`
 
 ### string GetVarOrNull(string key)
-Retrieve the value of an environment variable by its key or null it if it doesn't: `GodotEnvironment.GetVarOrNull("SERVER_PORT")`
+Retrieve the value of an environment variable by its key or null it if it doesn't: 
+
+`GodotParadiseEnvironment.GetVarOrNull("SERVER_PORT")`
 
 ### void SetVar(string key, string value = "")
 Set a environment variable on the runtime process, this is an alternative to `OS.SetEnvironment(key, value)`:
-`GodotEnvironment.SetVar("API_KEY", "991918291921")`
+
+`GodotParadiseEnvironment.SetVar("API_KEY", "991918291921")`
 
 ### void RemoveVar(string key)
-Remove a variable from the runtime process `GodotEnvironment.RemoveVar("API_KEY")`
+Remove a variable from the runtime process 
+
+`GodotParadiseEnvironment.RemoveVar("API_KEY")`
 
 ### void CreateEnvironmentFile(string filename = ".env", bool overwrite = false)
 Create an environment file with the specified filename. If it already exists, it can be overwritten
-```py
-GodotEnvironment.CreateEnvironmentFile(".env")
-GodotEnvironment.AddVarToFile("env", "PORT", 3000)
-GodotEnvironment.AddVarToFile("env", "ENCRYPTION_ALGORITHM", 'SHA256')
+```csharp
+GodotParadiseEnvironment.CreateEnvironmentFile(".env")
+GodotParadiseEnvironment.AddVarToFile("env", "PORT", 3000)
+GodotParadiseEnvironment.AddVarToFile("env", "ENCRYPTION_ALGORITHM", 'SHA256')
 ```
 
 ### LoadEnvFile(filename: String = ".env") -> void
 Read an `.env file` and set the valid environment variables to be accessible in the code:
-`GodotEnvironment.LoadEnvFile(".env.example")`
+`GodotParadiseEnvironment.LoadEnvFile(".env.example")`
 
 ### void FlushEnvironmentVariables(string filename = ".env", Array<string> except = null)
 Remove environment variables from the current process runtime. You can add the keys that you do not want to be deleted in this process as second parameter:
-```py
-GodotEnvironment.FlushEnvironmentVariables(".env")
-GodotEnvironment.FlushEnvironmentVariables(".env", ["IP_ADDRESS", "COUNTRY"])
+```csharp
+GodotParadiseEnvironment.FlushEnvironmentVariables(".env")
+GodotParadiseEnvironment.FlushEnvironmentVariables(".env", ["IP_ADDRESS", "COUNTRY"])
 ```
 
 ### void AddVarToFile(string filename, string key, string value = "")
 Add a key-value pair to an environment file and set the environment variable
-```py
-GodotEnvironment.AddVarToFile("env", "PORT", 4500)
-GodotEnvironment.AddVarToFile("env", "APP_NAME", 'FightingTournament')
+```csharp
+GodotParadiseEnvironment.AddVarToFile("env", "PORT", 4500)
+GodotParadiseEnvironment.AddVarToFile("env", "APP_NAME", 'FightingTournament')
 ```
 
 ## 🎬 Scene transitioner
@@ -367,7 +382,7 @@ GodotParadiseSceneTransitioner.TransitionToWithLoading(target_scene, loading)
 ```
 
 In the loading scene, you gain access to progress and load status data retrieved from the [ResourceLoader](https://docs.godotengine.org/en/stable/classes/class_resourceloader.html), which you can utilize to display relevant information. Below is a basic example to demonstrate this functionality.
-To ensure proper functionality, it's essential to call the parent `_Process()` function; failing to do so will result in the information not being updated:
+To ensure proper functionality, it's essential to call the parent `base._Process()` function; failing to do so will result in the information not being updated:
 ```csharp
 // res://transitions/loading.tscn
 public partial class YourLoadingTransitionScene : GodotParadiseSceneTransition {
@@ -385,7 +400,7 @@ public partial class YourLoadingTransitionScene : GodotParadiseSceneTransition {
 
 ```
 ### GodotParadiseSceneTransicioner
-#### transition_to(scene, transition: PackedScene, data: Dictionary = {})
+#### TransitionTo(string scene, string transition, TransitionData data)
 The primary function responsible for initiating the transition to the target scene is the `TransitionTo` function. Any data passed to this function will be accessible within the transition scene, enabling the incorporation of external parameters as needed.
 It is focused on transitioning pre-loaded scenes.
 
@@ -401,6 +416,19 @@ It behaves identically to `TransitionTo`, but with one key distinction: the scen
 - public TransitionData Data;
 - public Array Progress;
 - public ResourceLoader.ThreadLoadStatus LoadStatus
+
+```py
+enum  ThreadLoadStatus:
+
+● THREAD_LOAD_INVALID_RESOURCE = 0
+#The resource is invalid, or has not been loaded with load_threaded_request().
+● THREAD_LOAD_IN_PROGRESS = 1
+# The resource is still being loaded.
+● THREAD_LOAD_FAILED = 2
+# Some error occurred during loading and it failed.
+● THREAD_LOAD_LOADED = 3
+# The resource was loaded successfully and can be accessed via load_threaded_get().
+```
 
 `TransitionData` is a custom class that transport specific parameters for the transition:
 ```csharp
@@ -428,18 +456,6 @@ public record TransitionData
 }
 ```
 
-```py
-enum  ThreadLoadStatus:
-
-● THREAD_LOAD_INVALID_RESOURCE = 0
-#The resource is invalid, or has not been loaded with load_threaded_request().
-● THREAD_LOAD_IN_PROGRESS = 1
-# The resource is still being loaded.
-● THREAD_LOAD_FAILED = 2
-# Some error occurred during loading and it failed.
-● THREAD_LOAD_LOADED = 3
-# The resource was loaded successfully and can be accessed via load_threaded_get().
-```
 #### Signals
 - *StartedTransition(Dictionary data)*
 - *FinishedTransition(Dictionary data, PackedScene nextScene)* `NextScene` it's only provided on `TransitionToWithLoading`
@@ -457,7 +473,7 @@ GodotParadiseAudioManager.AvailableBuses # returns ["Master", "Music", "SFX"]
 
 ### void ChangeVolume(dynamic bus, float value)
 Change the volume of selected `BusIndex` if it exists. Can receive the bus parameter as name or index.
-```py
+```csharp
 GodotParadiseAudioManager.ChangeVolume(1, 0.5f)
 # or
 GodotParadiseAudioManager.ChangeVolume("Music", 0.5f)
