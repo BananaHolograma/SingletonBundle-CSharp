@@ -49,7 +49,7 @@ Este plugin ofrece una colección de singletons que engloban recursos y funciona
 	- [⚙️ Environment variables](#️-environment-variables)
 		- [Variable tracker](#variable-tracker)
 		- [Ejemplo de uso](#ejemplo-de-uso)
-- [Cargando variables de otros archivos](#cargando-variables-de-otros-archivos)
+		- [Cargando variables de otros archivos](#cargando-variables-de-otros-archivos)
 		- [Señales](#señales)
 		- [string GetVar(string key)](#string-getvarstring-key)
 		- [string GetVarOrNull(string key)](#string-getvarornullstring-key)
@@ -255,7 +255,7 @@ ADDRESS=127.0.0.1
 ADDRESS=192.168.1.55 # Esta será asignada y sobreescribirá a la anterior
 ```
 
-# Cargando variables de otros archivos
+### Cargando variables de otros archivos
 Esta clase soporta la lectura de múltiples archivos de entorno. Para producción, es altamente recomendable abstenerse de incluir el archivo `.env` en su repositorio de código fuente. En su lugar, considere proporcionar en el repositorio un archivo `.env.example` con valores en blanco para las claves utilizadas. Esta estrategia le permite duplicar el archivo e introducir los valores en su entorno local, evitando así la exposición involuntaria de información sensible.
 ```csharp
 // .env.example
